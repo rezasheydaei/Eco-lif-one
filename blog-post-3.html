@@ -3,175 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="EcoLife One - One Life, One Earth, One Choice. Live sustainably and protect our planet.">
-    <meta name="keywords" content="green living, sustainability, eco-friendly, EcoLife One">
-    <meta name="author" content="EcoLife One">
-    <title>EcoLife One - One Life, One Earth, One Choice</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Tips for starting a zero-waste lifestyle with EcoLife One.">
+    <title>How to Start a Zero-Waste Lifestyle - EcoLife One</title>
+    <link rel="stylesheet" href="./styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="logo">
             <h1>EcoLife One</h1>
         </div>
         <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#green-lifestyle">Green Lifestyle</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="./index.html#home">Home</a></li>
+            <li><a href="./index.html#about">About</a></li>
+            <li><a href="./index.html#green-lifestyle">Green Lifestyle</a></li>
+            <li><a href="./index.html#blog">Blog</a></li>
+            <li><a href="./index.html#contact">Contact</a></li>
         </ul>
         <div class="menu-toggle">
             <i class="fas fa-bars"></i>
         </div>
     </nav>
-
-    <!-- Header Section -->
-    <header id="home" class="hero">
-        <div class="slider">
-            <div class="slide active" style="background-image: url('https://source.unsplash.com/random/1920x1080/?nature');">
-                <div class="hero-content">
-                    <h1>EcoLife One</h1>
-                    <p>One Life, One Earth, One Choice</p>
-                    <a href="#green-lifestyle" class="cta-button">Go Green with Us</a>
-                </div>
-            </div>
-            <div class="slide" style="background-image: url('https://source.unsplash.com/random/1920x1080/?forest');">
-                <div class="hero-content">
-                    <h1>Join the Green Movement</h1>
-                    <p>Live sustainably with EcoLife One.</p>
-                    <a href="#green-lifestyle" class="cta-button">Learn More</a>
-                </div>
-            </div>
-        </div>
-        <div class="slider-controls">
-            <button class="prev-slide"><i class="fas fa-chevron-left"></i></button>
-            <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    </header>
-
-    <!-- Values Section -->
-    <section id="values" class="section">
-        <h2>Our Values</h2>
-        <div class="values-container">
-            <div class="value-card">
-                <span class="icon">🌱</span>
-                <h3>Green Living</h3>
-                <p>Green living is a lifestyle. Make choices that nurture our planet.</p>
-            </div>
-            <div class="value-card">
-                <span class="icon">💧</span>
-                <h3>Cleanliness</h3>
-                <p>Cleanliness means giving back to nature with every action.</p>
-            </div>
-            <div class="value-card">
-                <span class="icon">☀️</span>
-                <h3>Unity</h3>
-                <p>Uniting humans and Earth for a sustainable future.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <h2>About EcoLife One</h2>
-        <p>EcoLife One is a reminder that we have one planet. Our mission is to build a green, clean future where humans and nature thrive together.</p>
-        <img src="https://source.unsplash.com/random/800x400/?sustainability" alt="Sustainability" class="about-image">
-    </section>
-<!-- Green Lifestyle Section -->
-    <section id="green-lifestyle" class="section">
-        <h2>Green Lifestyle</h2>
-        <p>Discover practical ways to live sustainably and reduce your environmental impact.</p>
-        <div class="tips-container">
-            <div class="tip-card">
-                <h3>Reduce Waste</h3>
-                <p>Use reusable bags, bottles, and containers to minimize plastic waste.</p>
-            </div>
-            <div class="tip-card">
-                <h3>Save Energy</h3>
-                <p>Switch to LED bulbs and unplug devices when not in use.</p>
-            </div>
-            <div class="tip-card">
-                <h3>Join Challenges</h3>
-                <p>Take part in our 30-day plastic-free challenge!</p>
-            </div>
-        </div>
-        <!-- Carbon Footprint Calculator -->
-        <div class="calculator">
-            <h3>Calculate Your Carbon Footprint</h3>
-            <form id="carbon-form">
-                <label>Monthly Electricity Usage (kWh):</label>
-                <input type="number" id="electricity" placeholder="Enter kWh" required>
-                <label>Monthly Car Travel (km):</label>
-                <input type="number" id="car-travel" placeholder="Enter km" required>
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="carbon-result"></p>
-        </div>
-        <!-- Green Quiz -->
-        <div class="quiz">
-            <h3>How Green Are You?</h3>
-            <button id="start-quiz" class="cta-button">Take the Quiz</button>
-            <div id="quiz-container" style="display: none;">
-                <p id="quiz-question"></p>
-                <div id="quiz-options"></div>
-                <button id="next-question" class="cta-button">Next</button>
-                <p id="quiz-result"></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog Section -->
-    <section id="blog" class="section">
-        <h2>Blog</h2>
-        <p>Explore our latest articles on sustainability and green living.</p>
-        <div class="blog-filter">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="sustainability">Sustainability</button>
-            <button class="filter-btn" data-filter="energy">Energy</button>
-        </div>
-        <div class="blog-container" id="blog-posts"></div>
-        <div class="pagination">
-            <button id="prev-page" disabled>Previous</button>
-            <button id="next-page">Next</button>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <h2>Contact Us</h2>
-        <p>Have questions or ideas? Get in touch with us!</p>
-        <form id="contact-form" class="contact-form">
-            <input type="text" id="name" placeholder="Name" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <textarea id="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-    </section>
-
-    <!-- Social Media Section -->
-    <section id="social" class="section">
-        <h2>Follow Us</h2>
-        <div class="social-container">
-            <div class="social-card">
-                <h3>Twitter (@ecolifone)</h3>
-                <p>Stay updated with our latest posts on sustainability.</p>
-                <a href="https://x.com/ecolifone" target="_blank" class="cta-button">Follow @ecolifone</a>
-            </div>
-            <div class="social-card">
-                <h3>Telegram</h3>
-                <p>Join our Telegram channel for green challenges and tips.</p>
-                <a href="https://t.me/Ecolifone" target="_blank" class="cta-button">Join Telegram</a>
-            </div>
-        </div>
-    </section>
-<!-- Footer -->
+    <div class="blog-content">
+        <h1>How to Start a Zero-Waste Lifestyle</h1>
+        <p>Going zero-waste is a journey. Here’s how to start:</p>
+        <ul>
+            <li><strong>Refuse:</strong> Say no to single-use plastics like straws and bags.</li>
+            <li><strong>Reduce:</strong> Buy only what you need to avoid waste.</li>
+            <li><strong>Reuse:</strong> Use reusable containers and bags for shopping.</li>
+            <li><strong>Recycle:</strong> Properly sort and recycle materials.</li>
+            <li><strong>Compost:</strong> Turn food scraps into nutrient-rich compost.</li>
+        </ul>
+        <p>Small changes lead to big results. Start your zero-waste journey today!</p>
+        <a href="./index.html#blog" class="back-link">Back to Blog</a>
+    </div>
     <footer class="footer">
         <p>&copy; 2025 EcoLife One. All rights reserved.</p>
         <div class="social-links">
@@ -179,7 +45,6 @@
             <a href="https://x.com/ecolifone" target="_blank"><i class="fab fa-twitter"></i> Twitter (@ecolifone)</a>
         </div>
     </footer>
-
-    <script src="scripts.js"></script>
+    <script src="./scripts.js"></script>
 </body>
 </html>
