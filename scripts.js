@@ -1,0 +1,201 @@
+// Initialize EmailJS
+emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+
+// Slider Functionality
+const slides = document.querySelectorAll(".slide");
+const prevSlide = document.querySelector(".prev-slide");
+const nextSlide = document.querySelector(".next-slide");
+let currentSlide = 0;
+
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+    });
+}
+
+nextSlide.addEventListener("click", () => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+});
+
+prevSlide.addEventListener("click", () => {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+});
+
+// Auto-slide every 5 seconds
+setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}, 5000);
+
+// Blog Data
+const blogPosts = [
+    {
+        title: "5 Ways to Reduce Your Carbon Footprint",
+        description: "Simple steps to make a big impact on the environment.",
+        category: "sustainability",
+        link: "#"
+    },
+    {
+        title: "The Power of Renewable Energy",
+        description: "Why solar and wind energy are the future.",
+        category: "energy",
+        link: "#"
+    },
+    {
+        title: "How to Start a Zero-Waste Lifestyle",
+        description: "Tips to eliminate waste from your daily routine.",
+        category: "sustainability",
+        link: "#"
+    },
+    {
+        title: "Solar Panels: A Beginner’s Guide",
+        description: "Everything you need to know about solar energy.",
+        category: "energy",
+        link: "#"
+    }
+];
+
+// Blog Pagination
+let currentPage = 1;
+const postsPerPage = 3;
+
+function loadBlogPosts(filter = "all", page = 1) {
+    const blogContainer = document.getElementById("blog-posts");
+    blogContainer.innerHTML = "";
+    const filteredPosts = filter === "all" ? blogPosts : blogPosts.filter(post => post.category === filter);
+    const start = (page - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    const paginatedPosts = filteredPosts.slice(start, end);
+
+    paginatedPosts.forEach(post => {
+        const postElement = document.createElement("div");
+        postElement.classList.add("blog-post");
+        postElement.innerHTML = 
+            <h3>${post.title}</h3>
+            <p>${post.description}</p>
+            <a href="${post.link}" class="read-more">Read More</a>
+        ;
+        blogContainer.appendChild(postElement);
+    });
+
+    // Update Pagination
+    document.getElementById("prev-page").disabled = page === 1;
+    document.getElementById("next-page").disabled = end >= filteredPosts.length;
+}
+
+// Blog Filter
+document.querySelectorAll(".filter-btn").forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        currentPage = 1;
+        loadBlogPosts(button.dataset.filter, currentPage);
+    });
+});
+
+// Pagination Controls
+document.getElementById("prev-page").addEventListener("click", () => {
+    if (currentPage > 1) {
+        currentPage--;
+        loadBlogPosts(document.querySelector(".filter-btn.active").dataset.filter, currentPage);
+    }
+});
+
+document.getElementById("next-page").addEventListener("click", () => {
+    currentPage++;
+    loadBlogPosts(document.querySelector(".filter-btn.active").dataset.filter, currentPage);
+});
+
+// Initial Blog Load
+loadBlogPosts();
+
+// Carbon Footprint Calculator
+document.getElementById("carbon-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const electricity = parseFloat(document.getElementById("electricity").value);
+    const carTravel = parseFloat(document.getElementById("car-travel").value);
+// Simple calculation (kg CO2)
+    const carbonFootprint = (electricity * 0.4) + (carTravel * 0.2); // Example coefficients
+    document.getElementById("carbon-result").innerText = Your estimated carbon footprint is ${carbonFootprint.toFixed(2)} kg CO2 per month. Try our green tips to reduce it!;
+});
+
+// Green Quiz
+const quizQuestions = [
+    {
+        question: "How often do you use reusable bags?",
+        options: ["Always", "Sometimes", "Never"],
+        scores: [10, 5, 0]
+    },
+    {
+        question: "Do you turn off lights when not in use?",
+        options: ["Always", "Sometimes", "Never"],
+        scores: [10, 5, 0]
+    },
+    {
+        question: "How often do you recycle?",
+        options: ["Always", "Sometimes", "Never"],
+        scores: [10, 5, 0]
+    }
+];
+
+let currentQuestion = 0;
+let quizScore = 0;
+
+document.getElementById("start-quiz").addEventListener("click", () => {
+    document.getElementById("start-quiz").style.display = "none";
+    document.getElementById("quiz-container").style.display = "block";
+    loadQuizQuestion();
+});
+
+function loadQuizQuestion() {
+    const quizContainer = document.getElementById("quiz-container");
+    const questionElement = document.getElementById("quiz-question");
+    const optionsElement = document.getElementById("quiz-options");
+    const nextButton = document.getElementById("next-question");
+
+    if (currentQuestion < quizQuestions.length) {
+        const question = quizQuestions[currentQuestion];
+        questionElement.innerText = question.question;
+        optionsElement.innerHTML = "";
+        question.options.forEach((option, index) => {
+            const button = document.createElement("button");
+            button.classList.add("cta-button");
+            button.innerText = option;
+            button.addEventListener("click", () => {
+                quizScore += question.scores[index];
+                currentQuestion++;
+                loadQuizQuestion();
+            });
+            optionsElement.appendChild(button);
+        });
+    } else {
+        quizContainer.innerHTML = <p id="quiz-result">Your Green Score: ${quizScore}/${quizQuestions.length * 10}. ${quizScore >= 20 ? "Great job! You're a green champion!" : "Try our tips to live greener!"}</p>;
+    }
+}
+
+// Contact Form Submission
+document.getElementById("contact-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const templateParams = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        message: document.getElementById("message").value
+    };
+
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+        .then(() => {
+            alert("Thank you! Your message has been sent successfully.");
+            this.reset();
+        }, (error) => {
+            alert("Failed to send message. Please try again later.");
+            console.error("EmailJS Error:", error);
+        });
+});
+
+// Mobile Menu Toggle
+document.querySelector(".menu-toggle").addEventListener("click", () => {
+    document.querySelector(".nav-links").classList.toggle("active");
+});
