@@ -61,25 +61,25 @@ document.addEventListener('DOMContentLoaded', function() {
             title: "5 Ways to Reduce Your Carbon Footprint",
             description: "Simple steps to make a big impact on the environment.",
             category: "sustainability",
-            link: "#"
+            link: "./blog-post-1.html"
         },
         {
             title: "The Power of Renewable Energy",
             description: "Why solar and wind energy are the future.",
             category: "energy",
-            link: "#"
+            link: "./blog-post-2.html"
         },
         {
             title: "How to Start a Zero-Waste Lifestyle",
             description: "Tips to eliminate waste from your daily routine.",
             category: "sustainability",
-            link: "#"
+            link: "./blog-post-3.html"
         },
         {
             title: "Solar Panels: A Beginner’s Guide",
             description: "Everything you need to know about solar energy.",
             category: "energy",
-            link: "#"
+            link: "./blog-post-4.html"
         }
     ];
 
