@@ -1,35 +1,35 @@
-// Menu Toggle
+// Toggle Menu for Mobile View
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 
 menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
+    navLinks.classList.toggle('active'); // Toggle active class to show/hide menu
 });
 
-// Smooth Scroll
+// Smooth Scroll for Navigation Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default anchor behavior
         document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+            behavior: 'smooth' // Smooth scrolling effect
         });
         navLinks.classList.remove('active'); // Close menu on mobile after click
     });
 });
 
-// Header Slider
+// Header Slider Functionality
 let slideIndex = 0;
 const slides = document.querySelectorAll('.header-slide');
 
 function showSlides() {
-    slides.forEach(slide => slide.style.display = 'none');
+    slides.forEach(slide => slide.style.display = 'none'); // Hide all slides
     slideIndex++;
-    if (slideIndex > slides.length) { slideIndex = 1; }
-    slides[slideIndex - 1].style.display = 'block';
+    if (slideIndex > slides.length) { slideIndex = 1; } // Loop back to first slide
+    slides[slideIndex - 1].style.display = 'block'; // Show current slide
     setTimeout(showSlides, 5000); // Change slide every 5 seconds
 }
 
-showSlides();
+showSlides(); // Start the slider
 
 // Quiz Functionality
 const quizButton = document.querySelector('#quiz-button');
@@ -57,17 +57,17 @@ function checkQuiz() {
 
 // Contact Form with EmailJS
 (function() {
-    emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS Public Key
+    emailjs.init('YOUR_PUBLIC_KEY'); // Initialize EmailJS with your Public Key (get from EmailJS dashboard)
 })();
 
 document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission
     emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
         .then(function() {
-            alert('Message sent successfully! Thank you! 🌱');
-            document.getElementById('contact-form').reset();
+            alert('Message sent successfully! Thank you! 🌱'); // Success message
+            document.getElementById('contact-form').reset(); // Reset form
         }, function(error) {
-            alert('Failed to send message. Please try again later. Error: ' + error);
+            alert('Failed to send message. Please try again later. Error: ' + error); // Error message
         });
 });
 
