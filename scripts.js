@@ -1,254 +1,131 @@
-// Initialize EmailJS - Replace with your keys
-emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+// Menu Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
 
-// Wait for DOM to load
-document.addEventListener('DOMContentLoaded', function() {
-    // Slider Functionality
-    const slides = document.querySelectorAll(".slide");
-    const prevSlide = document.querySelector(".prev-slide");
-    const nextSlide = document.querySelector(".next-slide");
-    let currentSlide = 0;
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
 
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle("active", i === index);
+// Smooth Scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
         });
-    }
-
-    if (nextSlide && prevSlide && slides.length > 0) {
-        nextSlide.addEventListener("click", () => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        });
-
-        prevSlide.addEventListener("click", () => {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        });
-
-        // Auto-slide every 5 seconds
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }, 5000);
-    }
-
-    // Navbar Mobile Toggle
-    const menuToggle = document.querySelector(".menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener("click", () => {
-            navLinks.classList.toggle("active");
-        });
-    }
-
-    // Smooth scroll for nav links
-    const navA = document.querySelectorAll('.nav-links a[href^="#"]');
-    navA.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-            if (navLinks) navLinks.classList.remove("active");
-        });
+        navLinks.classList.remove('active'); // Close menu on mobile after click
     });
+});
 
-    // Blog Data
-    const blogPosts = [
-        {
-            title: "5 Ways to Reduce Your Carbon Footprint",
-            description: "Simple steps to make a big impact on the environment.",
-            category: "sustainability",
-            link: "./blog-post-1.html"
-        },
-        {
-            title: "The Power of Renewable Energy",
-            description: "Why solar and wind energy are the future.",
-            category: "energy",
-            link: "./blog-post-2.html"
-        },
-        {
-            title: "How to Start a Zero-Waste Lifestyle",
-            description: "Tips to eliminate waste from your daily routine.",
-            category: "sustainability",
-            link: "./blog-post-3.html"
-        },
-        {
-            title: "Solar Panels: A Beginner’s Guide",
-            description: "Everything you need to know about solar energy.",
-            category: "energy",
-            link: "./blog-post-4.html"
-        }
-    ];
+// Header Slider
+let slideIndex = 0;
+const slides = document.querySelectorAll('.header-slide');
 
-    // Blog Pagination
-    let currentPage = 1;
-    const postsPerPage = 3;
+function showSlides() {
+    slides.forEach(slide => slide.style.display = 'none');
+    slideIndex++;
+    if (slideIndex > slides.length) { slideIndex = 1; }
+    slides[slideIndex - 1].style.display = 'block';
+    setTimeout(showSlides, 5000); // Change slide every 5 seconds
+}
 
-    function loadBlogPosts(filter = "all", page = 1) {
-        const blogContainer = document.getElementById("blog-posts");
-        if (!blogContainer) return;
-        blogContainer.innerHTML = "";
-        const filteredPosts = filter === "all" ? blogPosts : blogPosts.filter(post => post.category === filter);
-        const start = (page - 1) * postsPerPage;
-        const end = start + postsPerPage;
-        const paginatedPosts = filteredPosts.slice(start, end);
+showSlides();
 
-        paginatedPosts.forEach(post => {
-            const postElement = document.createElement("div");
-            postElement.classList.add("blog-post");
-            postElement.innerHTML = `
-                <h3>${post.title}</h3>
-                <p>${post.description}</p>
-                <a href="${post.link}" class="read-more">Read More</a>
-            `;
-            blogContainer.appendChild(postElement);
+// Quiz Functionality
+const quizButton = document.querySelector('#quiz-button');
+const quizContainer = document.querySelector('#quiz-container');
+
+quizButton.addEventListener('click', () => {
+    quizContainer.innerHTML = `
+        <h2>Take the Eco Quiz!</h2>
+        <p>Question 1: What reduces carbon footprint the most?</p>
+        <input type="radio" name="q1" value="a"> a) Using plastic bags<br>
+        <input type="radio" name="q1" value="b"> b) Planting trees<br>
+        <input type="radio" name="q1" value="c"> c) Driving more<br>
+        <button onclick="checkQuiz()">Submit</button>
+    `;
+});
+
+function checkQuiz() {
+    const answer = document.querySelector('input[name="q1"]:checked');
+    if (answer && answer.value === 'b') {
+        quizContainer.innerHTML = '<p>Correct! Planting trees helps the most. Great job! 🌱</p>';
+    } else {
+        quizContainer.innerHTML = '<p>Try again! The best answer is planting trees. 🌳</p>';
+    }
+}
+
+// Contact Form with EmailJS
+(function() {
+    emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS Public Key
+})();
+
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+        .then(function() {
+            alert('Message sent successfully! Thank you! 🌱');
+            document.getElementById('contact-form').reset();
+        }, function(error) {
+            alert('Failed to send message. Please try again later. Error: ' + error);
         });
+});
 
-        // Update Pagination
-        const prevBtn = document.getElementById("prev-page");
-        const nextBtn = document.getElementById("next-page");
-        if (prevBtn) prevBtn.disabled = page === 1;
-        if (nextBtn) nextBtn.disabled = end >= filteredPosts.length;
+// Blog Data
+const blogPosts = [
+    {
+        title: "5 Ways to Reduce Your Carbon Footprint",
+        description: "Simple steps to make a big impact on the environment.",
+        category: "sustainability",
+        link: "./blog-post-1.html"
+    },
+    {
+        title: "The Power of Renewable Energy",
+        description: "Why solar and wind energy are the future.",
+        category: "energy",
+        link: "./blog-post-2.html"
+    },
+    {
+        title: "How to Start a Zero-Waste Lifestyle",
+        description: "Tips to eliminate waste from your daily routine.",
+        category: "sustainability",
+        link: "./blog-post-3.html"
+    },
+    {
+        title: "Solar Panels: A Beginner’s Guide",
+        description: "Everything you need to know about solar energy.",
+        category: "energy",
+        link: "./blog-post-4.html"
+    },
+    {
+        title: "How to Help Nature with Home Gardening",
+        description: "Discover the power of home gardening for a greener planet.",
+        category: "sustainability",
+        link: "./blog-post-5.html"
+    },
+    {
+        title: "Revolution of Clean Energy: Solar Homes Guide",
+        description: "A comprehensive guide to solar energy for homes.",
+        category: "energy",
+        link: "./blog-post-6.html"
+    },
+    {
+        title: "How Urban Cycling Helps the Planet",
+        description: "Learn how cycling can reduce pollution and improve health.",
+        category: "sustainability",
+        link: "./blog-post-7.html"
     }
+];
 
-    // Blog Filter
-    const filterBtns = document.querySelectorAll(".filter-btn");
-    filterBtns.forEach(button => {
-        button.addEventListener("click", () => {
-            filterBtns.forEach(btn => btn.classList.remove("active"));
-            button.classList.add("active");
-            currentPage = 1;
-            loadBlogPosts(button.dataset.filter, currentPage);
-        });
-    });
-
-    // Pagination Controls
-    const prevPage = document.getElementById("prev-page");
-    const nextPage = document.getElementById("next-page");
-    if (prevPage) {
-        prevPage.addEventListener("click", () => {
-            if (currentPage > 1) {
-                currentPage--;
-                loadBlogPosts(document.querySelector(".filter-btn.active").dataset.filter, currentPage);
-            }
-        });
-    }
-    if (nextPage) {
-        nextPage.addEventListener("click", () => {
-            currentPage++;
-            loadBlogPosts(document.querySelector(".filter-btn.active").dataset.filter, currentPage);
-        });
-    }
-
-    // Initial Blog Load
-    loadBlogPosts();
-
-    // Carbon Footprint Calculator
-    const carbonForm = document.getElementById("carbon-form");
-    if (carbonForm) {
-        carbonForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const electricity = parseFloat(document.getElementById("electricity").value);
-            const carTravel = parseFloat(document.getElementById("car-travel").value);
-            const carbonFootprint = (electricity * 0.4) + (carTravel * 0.2); // Example coefficients
-            document.getElementById("carbon-result").innerText = `Your estimated carbon footprint is ${carbonFootprint.toFixed(2)} kg CO2 per month. Try our green tips to reduce it!`;
-        });
-    }
-
-    // Green Quiz
-    const quizQuestions = [
-        {
-            question: "How often do you use reusable bags?",
-            options: ["Always", "Sometimes", "Never"],
-            scores: [10, 5, 0]
-        },
-        {
-            question: "Do you turn off lights when not in use?",
-            options: ["Always", "Sometimes", "Never"],
-            scores: [10, 5, 0]
-        },
-        {
-            question: "How often do you recycle?",
-            options: ["Always", "Sometimes", "Never"],
-            scores: [10, 5, 0]
-        }
-    ];
-
-    let currentQuestion = 0;
-    let quizScore = 0;
-
-    const startQuizBtn = document.getElementById("start-quiz");
-    const quizContainer = document.getElementById("quiz-container");
-    if (startQuizBtn && quizContainer) {
-        startQuizBtn.addEventListener("click", () => {
-            startQuizBtn.style.display = "none";
-            quizContainer.style.display = "block";
-            currentQuestion = 0;
-            quizScore = 0;
-            loadQuizQuestion();
-        });
-    }
-
-    function loadQuizQuestion() {
-        const questionElement = document.getElementById("quiz-question");
-        const optionsElement = document.getElementById("quiz-options");
-        const quizResult = document.getElementById("quiz-result");
-        if (!questionElement || !optionsElement || !quizResult) return;
-
-        if (currentQuestion < quizQuestions.length) {
-            const question = quizQuestions[currentQuestion];
-            questionElement.innerText = question.question;
-            optionsElement.innerHTML = "";
-            question.options.forEach((option, index) => {
-                const button = document.createElement("button");
-                button.classList.add("cta-button");
-                button.innerText = option;
-                button.style.margin = "0.5rem";
-                button.addEventListener("click", () => {
-                    quizScore += question.scores[index];
-                    currentQuestion++;
-                    if (currentQuestion < quizQuestions.length) {
-                        loadQuizQuestion();
-                    } else {
-                        showQuizResult();
-                    }
-                });
-                optionsElement.appendChild(button);
-            });
-            quizResult.innerHTML = "";
-        } else {
-            showQuizResult();
-        }
-    }
-
-    function showQuizResult() {
-        const quizResult = document.getElementById("quiz-result");
-        if (quizResult) {
-            quizResult.innerHTML = `<p>Your Green Score: ${quizScore}/${quizQuestions.length * 10}. ${quizScore >= 20 ? "Great job! You're a green champion!" : "Try our tips to live greener!"}</p>`;
-        }
-    }
-
-    // Contact Form Submission
-    const contactForm = document.getElementById("contact-form");
-    if (contactForm) {
-        contactForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const templateParams = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,
-                message: document.getElementById("message").value
-            };
-            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams) // Replace with your EmailJS IDs
-                .then(() => {
-                    alert("Thank you! Your message has been sent successfully.");
-                    this.reset();
-                }, (error) => {
-                    alert("Failed to send message. Please try again later.");
-                    console.error("EmailJS Error:", error);
-                });
-        });
-    }
+// Dynamically Populate Blog Section
+const blogSection = document.querySelector('#blog .blog-posts');
+blogPosts.forEach(post => {
+    const postElement = document.createElement('div');
+    postElement.classList.add('blog-post');
+    postElement.innerHTML = `
+        <h3>${post.title}</h3>
+        <p>${post.description}</p>
+        <a href="${post.link}" class="read-more">Read More</a>
+    `;
+    blogSection.appendChild(postElement);
 });
