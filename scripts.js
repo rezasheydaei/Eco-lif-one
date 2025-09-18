@@ -61,25 +61,50 @@ document.addEventListener('DOMContentLoaded', function() {
             title: "5 Ways to Reduce Your Carbon Footprint",
             description: "Simple steps to make a big impact on the environment.",
             category: "sustainability",
-            link: "./blog-post-1.html"
+            link: "./blog-post-1.html",
+            image: "https://images.unsplash.com/photo-1508514177221-188b645fd5af?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
         },
         {
             title: "The Power of Renewable Energy",
             description: "Why solar and wind energy are the future.",
             category: "energy",
-            link: "./blog-post-2.html"
+            link: "./blog-post-2.html",
+            image: "https://images.unsplash.com/photo-1497436072909-60f69c88b26b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
         },
         {
             title: "How to Start a Zero-Waste Lifestyle",
             description: "Tips to eliminate waste from your daily routine.",
             category: "sustainability",
-            link: "./blog-post-3.html"
+            link: "./blog-post-3.html",
+            image: "https://images.unsplash.com/photo-1562077772-3bd48b3773df?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
         },
         {
             title: "Solar Panels: A Beginner’s Guide",
             description: "Everything you need to know about solar energy.",
             category: "energy",
-            link: "./blog-post-4.html"
+            link: "./blog-post-4.html",
+            image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+        },
+        {
+            title: "Why Green Living is the Best Choice for Our Future?",
+            description: "Discover how small changes can lead to a sustainable tomorrow.",
+            category: "sustainability",
+            link: "./blog-post-5.html",
+            image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+        },
+        {
+            title: "Renewable Energy: Path to a Cleaner Future",
+            description: "Explore the world of solar, wind, and hydro energy.",
+            category: "energy",
+            link: "./blog-post-6.html",
+            image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+        },
+        {
+            title: "How to Start a Zero-Waste Life with Small Challenges?",
+            description: "Simple challenges to reduce waste and live greener.",
+            category: "sustainability",
+            link: "./blog-post-7.html",
+            image: "https://images.unsplash.com/photo-1562077772-3bd48b3773df?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
         }
     ];
 
@@ -100,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const postElement = document.createElement("div");
             postElement.classList.add("blog-post");
             postElement.innerHTML = `
+                <img src="${post.image}" alt="${post.title}" style="max-width: 100%; border-radius: 10px; margin-bottom: 1rem;">
                 <h3>${post.title}</h3>
                 <p>${post.description}</p>
                 <a href="${post.link}" class="read-more">Read More</a>
